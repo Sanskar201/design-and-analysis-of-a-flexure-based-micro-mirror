@@ -1,0 +1,43 @@
+# encoding: utf-8
+# 2024 R1
+SetScriptVersion(Version="24.1.144")
+template1 = GetTemplate(
+    TemplateName="Modal",
+    Solver="ANSYS")
+system1 = template1.CreateSystem()
+template2 = GetTemplate(
+    TemplateName="Harmonic Response",
+    Solver="ANSYS")
+engineeringDataComponent1 = system1.GetComponent(Name="Engineering Data")
+geometryComponent1 = system1.GetComponent(Name="Geometry")
+modelComponent1 = system1.GetComponent(Name="Model")
+system2 = template2.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent1, geometryComponent1, modelComponent1],
+    Position="Right",
+    RelativeTo=system1)
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+geometry1.Edit(IsDiscoveryGeometry=True)
+geometry1.Edit(IsDiscoveryGeometry=True)
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit()
+geometry1.Edit(IsDiscoveryGeometry=True)
+geometry1.Exit()
+model1.Exit()
+modelComponent1.Refresh()
+model1.Edit()
+model1.Exit()
+geometry1.Edit(IsDiscoveryGeometry=True)
+geometry1.Exit()
+modelComponent1.Refresh()
+model1.Edit()
+model1.Exit()
+system3 = GetSystem(Name="SYS 2")
+system3.Delete()
+model1.Edit()
+geometry1.Edit(IsDiscoveryGeometry=True)
+geometry1.Exit()
+geometry1.Edit(IsDiscoveryGeometry=True)
+model1.Exit()
+model1.Edit()
+geometry1.Exit()
+Save(Overwrite=True)
